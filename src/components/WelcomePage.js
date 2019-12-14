@@ -1,15 +1,16 @@
 import React from "react";
+import image from "../assets/rickandmorty.png";
+import styled from "styled-components";
 
 export default function WelcomePage() {
+  const Image = styled.img`
+    max-width: 100%;
+  `;
   return (
     <section className="welcome-page">
       <header>
         <h1>Welcome to the ultimate fan site!</h1>
-        <img
-          className="main-img"
-          src="https://www.lebanonews.net/En/wp-content/uploads/2019/03/163406/what-to-expect-from-rick-morty-season-4-822x411.jpg"
-          alt="rick"
-        />
+        <Image className="main-img" src={image} alt="rick" />
       </header>
     </section>
   );
