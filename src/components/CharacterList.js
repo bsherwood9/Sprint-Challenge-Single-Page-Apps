@@ -20,20 +20,39 @@ export default function CharacterList() {
   // TODO: Add useState to track data from useEffect
   const [chars, setChars] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(
+    "https://rickandmortyapi.com/api/character/"
+  );
+  const [loc, setLoc] = useState("");
   // TODO: Add API Request here - must run in `useEffect`
   //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
   useEffect(() => {
-    axios.get("https://rickandmortyapi.com/api/character/").then(res => {
-      setChars(res.data.results);
-      console.log(res.data.results);
-      setSearchTerm("");
-    });
-  }, []);
+    axios
+      .get(currentPage)
+      .then(res => {
+        setChars(res.data.results);
+        setLoc(res.data.info);
+        console.log(res);
+        setSearchTerm("");
+      })
+      .catch(error => console.log("Error is:", error));
+  }, [currentPage]);
 
+  const nextPage = () => {
+    setCurrentPage(loc.next);
+  };
+  const prevPage = () => {
+    setCurrentPage(loc.prev);
+  };
   return (
     <section className="character-list">
       <Title>Character List</Title>
       <SearchForm setSearchTerm={setSearchTerm} />
+      <div>
+        {loc.prev !== "" ? <button onClick={prevPage}>Prev</button> : <></>}
+        {loc.next !== "" ? <button onClick={nextPage}>Next</button> : <></>}
+      </div>
+
       <CharacterGrid>
         {chars
           .filter(item => {
