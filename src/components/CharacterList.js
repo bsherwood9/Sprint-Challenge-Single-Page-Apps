@@ -2,8 +2,21 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import SearchForm from "./SearchForm";
 import CharacterCard from "./CharacterCard";
+import styled from "styled-components";
 
 export default function CharacterList() {
+  const CharacterGrid = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-item: space-around;
+  `;
+
+  const Title = styled.h2`
+    text-align: center;
+    font-size: 2rem;
+  `;
+
   // TODO: Add useState to track data from useEffect
   const [chars, setChars] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -19,20 +32,22 @@ export default function CharacterList() {
 
   return (
     <section className="character-list">
-      <h2>Character List</h2>
+      <Title>Character List</Title>
       <SearchForm setSearchTerm={setSearchTerm} />
-      {chars
-        .filter(item => {
-          return (
-            item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            item.species.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            item.gender.includes(searchTerm) ||
-            item.status.toLowerCase().includes(searchTerm.toLowerCase())
-          );
-        })
-        .map(item => {
-          return <CharacterCard item={item} />;
-        })}
+      <CharacterGrid>
+        {chars
+          .filter(item => {
+            return (
+              item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              item.species.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              item.gender.includes(searchTerm) ||
+              item.status.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+          })
+          .map(item => {
+            return <CharacterCard item={item} />;
+          })}
+      </CharacterGrid>
     </section>
   );
 }
