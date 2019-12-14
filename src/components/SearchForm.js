@@ -17,21 +17,20 @@ export default function SearchForm({ setSearchTerm }) {
     padding-left: 20px;
   `;
   const Input = styled.input`
-    width: 100%;
     height: 20px;
     margin-bottom: 3px;
   `;
   return (
-    <Sect className="search-form">
-      <Form>
-        <Label htmlFor="search">Search:</Label>
-        <Input
+    <section className="search-form">
+      <form>
+        <label htmlFor="search">Search:</label>
+        <input
           name="search"
           type="text"
           placeholder="Search characters..."
           onChange={handleChange}
-        ></Input>
-      </Form>
-    </Sect>
+        ></input>
+      </form>
+    </section>
   );
 }
